@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MyLab.LogYml</name>
+    </assembly>
+    <members>
+        <member name="T:MyLab.LogYml.ConfigurationExtension">
+            <summary>
+            Extension fof logging configuration
+            </summary>
+        </member>
+        <member name="M:MyLab.LogYml.ConfigurationExtension.AddYaml(Microsoft.Extensions.Logging.ILoggingBuilder)">
+            <summary>
+            Adds YAML logger
+            </summary>
+        </member>
+        <member name="M:MyLab.LogYml.ConfigurationExtension.AddYaml(Microsoft.Extensions.Logging.ILoggingBuilder,System.Action{MyLab.LogYml.YamlLoggerOptions})">
+            <summary>
+            Adds YAML logger with options
+            </summary>
+        </member>
+        <member name="T:MyLab.LogYml.ILogMessageWriter">
+            <summary>
+            Determines log entity writer
+            </summary>
+        </member>
+        <member name="M:MyLab.LogYml.ILogMessageWriter.WriteMessageAsync(System.Collections.Generic.IEnumerable{MyLab.Logging.LogEntity},System.Threading.CancellationToken)">
+            <summary>
+            Write log entity async
+            </summary>
+        </member>
+        <member name="T:MyLab.LogYml.YamlLoggerOptions">
+            <summary>
+            Contains yaml log files writing options
+            </summary>
+        </member>
+        <member name="P:MyLab.LogYml.YamlLoggerOptions.WriteInterval">
+            <summary>
+            Writing interval
+            </summary>
+        </member>
+        <member name="P:MyLab.LogYml.YamlLoggerOptions.DisposeWaitingInterval">
+            <summary>
+            Dispose writing interval
+            </summary>
+        </member>
+        <member name="P:MyLab.LogYml.YamlLoggerOptions.FileSizeLimit">
+            <summary>
+            Defines max available file size
+            </summary>
+        </member>
+        <member name="P:MyLab.LogYml.YamlLoggerOptions.BasePath">
+            <summary>
+            The base log file path
+            </summary>
+        </member>
+        <member name="M:MyLab.LogYml.YamlLoggerOptions.IsDefault">
+            <summary>
+            Gets true if all properties are equals to default values
+            </summary>
+        </member>
+    </members>
+</doc>
