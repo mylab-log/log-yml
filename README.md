@@ -160,16 +160,18 @@ _log.Dsl().Act("Input request")
     .AndFactIs("IP", "123.123.123.123")
     .AndFactIs("TryCount", "10")
     .AndFactIs("Url", "http://host/path?q=query")
-    .AndFactIs("vip")
+    .AndMarkAs("vip")
     .Write();
 ```
 
 File record:
 
 ```
-Id: 111576f9-ac1e-4054-bfdb-46d7c3f1c8c3
-Time: 2018-09-05T11:25:10.5319396+03:00
+Id: 9f60e4a3-a0d0-4aac-acee-136e500600a1
+Time: 2018-09-05T14:49:12.7034580+03:00
 Content: Input request
+Markers:
+- vip
 Attributes:
 - Name: UserId
   Value: 12-4546
@@ -179,8 +181,6 @@ Attributes:
   Value: 10
 - Name: Url
   Value: http://host/path?q=query
-- Name: Conditions
-  Value: vip
 ```
 
 
