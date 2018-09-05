@@ -2,7 +2,7 @@
 
 For .NET Core 2.1+
 
-[![NuGet](https://img.shields.io/nuget/v/MyLab.WebErrors.svg)](https://www.nuget.org/packages/MyLab.WebErrors/)
+[![NuGet](https://img.shields.io/nuget/v/MyLab.LogYml.svg)](https://www.nuget.org/packages/MyLab.LogYml/)
 
 Writes logs in files with YAML format. Integrates in .NET Core build-in logging.
 
