@@ -58,7 +58,7 @@ namespace Demo
                 .AndFactIs("IP", "123.123.123.123")
                 .AndFactIs("TryCount", "10")
                 .AndFactIs("Url", "http://host/path?q=query")
-                .AndFactIs("vip")
+                .AndMarkAs("vip")
                 .Write();
         }
     }
