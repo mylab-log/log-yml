@@ -167,3 +167,8 @@ Attributes:
   Value: vip
 ```
 
+
+
+## PS
+
+All examples above you can find in `Demo` project.
