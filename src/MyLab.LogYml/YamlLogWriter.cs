@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using MyLab.Logging;
 using YamlDotNet.Serialization;
 
@@ -26,7 +27,7 @@ namespace MyLab.LogYml
         {
         }
 
-        public async Task WriteMessageAsync(IEnumerable<LogEntity> messages, CancellationToken cancel)
+        public async Task WriteMessageAsync(IEnumerable<LogMessageToWrite> messages, CancellationToken cancel)
         {
             var sb = new SerializerBuilder()
                 .WithEventEmitter(emitter => new NullObjectAsEmptyYamlEventEmitter(emitter));
@@ -54,10 +55,11 @@ namespace MyLab.LogYml
                             //if(cancel.IsCancellationRequested)
                             //    break;
 
-                            var str = s.Serialize(logEntity);
+                            var str = s.Serialize(logEntity.Message);
 
                             await file.WriteLineAsync(str);
-                            await file.WriteLineAsync();
+                            if(!str.EndsWith(Environment.NewLine))
+                                await file.WriteLineAsync();
                         }
                     }
                 }
@@ -68,13 +70,23 @@ namespace MyLab.LogYml
             }
         }
 
-        string GetFilenameTag(LogEntity logEntity)
+        string GetFilenameTag(LogMessageToWrite messageToWrite)
         {
-            if (logEntity.Markers.Contains(Markers.Error))
-                return "error";
-            if (logEntity.Markers.Contains(Markers.Debug))
-                return "debug";
-            return "info";
+            switch (messageToWrite.Level)
+            {
+                case LogLevel.Trace:
+                case LogLevel.Debug:
+                    return "dbg";
+                case LogLevel.Error:
+                case LogLevel.Critical:
+                    return "err";
+                case LogLevel.Information:
+                case LogLevel.None:
+                case LogLevel.Warning:
+                    return "";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(messageToWrite.Level), messageToWrite.Level, null);
+            }
         }
     }
 }

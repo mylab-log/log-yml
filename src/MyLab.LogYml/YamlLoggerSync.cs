@@ -1,33 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using Microsoft.Extensions.Logging;
 using MyLab.Logging;
 
 namespace MyLab.LogYml
 {
-    class YamlLogger : ILogger
+    class YamlLoggerSync : ILogger
     {
-        private readonly ILogMessageQueue _logMessageQueue;
         private readonly List<object> _scopes = new List<object>();
+        private readonly ILogMessageWriter _logMessageWriter;
 
         public string CategoryName { get; set; }
 
-        public YamlLogger(ILogMessageQueue logMessageQueue)
+        public YamlLoggerSync(ILogMessageWriter logMessageWriter)
         {
-            _logMessageQueue = logMessageQueue;
+            _logMessageWriter = logMessageWriter ?? throw new ArgumentNullException(nameof(logMessageWriter));
         }
 
         public void Log<TState>(
-            LogLevel logLevel, 
-            EventId eventId, 
-            TState state, 
-            Exception exception, 
+            LogLevel logLevel,
+            EventId eventId,
+            TState state,
+            Exception exception,
             Func<TState, Exception, string> formatter)
         {
             var msg = LogDtoConverter.Convert(logLevel, eventId, state, exception, formatter);
             var msgToWrite = new LogMessageToWrite(msg, logLevel);
-
-            _logMessageQueue.Push(msgToWrite);
+            var writeTask = _logMessageWriter.WriteMessageAsync(Enumerable.Repeat(msgToWrite, 1), CancellationToken.None);
+            writeTask.Wait(CancellationToken.None);
         }
 
         public bool IsEnabled(LogLevel logLevel)

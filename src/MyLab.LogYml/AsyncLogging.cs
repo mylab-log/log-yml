@@ -11,7 +11,7 @@ namespace MyLab.LogYml
     {
         private readonly ILogMessageWriter _logMessageWriter;
         private readonly CancellationTokenSource _cancel = new CancellationTokenSource();
-        private readonly BlockingCollection<LogEntity> _logQueue = new BlockingCollection<LogEntity>();
+        private readonly BlockingCollection<LogMessageToWrite> _logQueue = new BlockingCollection<LogMessageToWrite>();
 
         private Task _wrtTask;
 
@@ -35,7 +35,7 @@ namespace MyLab.LogYml
         {
             do
             {
-                var batch = new List<LogEntity>();
+                var batch = new List<LogMessageToWrite>();
 
                 while (_logQueue.TryTake(out var item))
                 {
@@ -81,7 +81,7 @@ namespace MyLab.LogYml
             }
         }
 
-        public void Push(LogEntity message)
+        public void Push(LogMessageToWrite message)
         {
             _logQueue.TryAdd(message);
         }

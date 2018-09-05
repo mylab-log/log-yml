@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Moq;
 using MyLab.Logging;
 using Xunit;
@@ -24,12 +25,12 @@ namespace MyLab.LogYml.Tests
         {
             //Arrange
 
-            LogEntity origin = new LogEntity();
-            LogEntity got = null;
+            LogMessageToWrite origin = new LogMessageToWrite(null, LogLevel.None);
+            LogMessageToWrite got = null;
 
             var logWriterMock = new Mock<ILogMessageWriter>();
-            logWriterMock.Setup(w => w.WriteMessageAsync(It.IsAny<IEnumerable<LogEntity>>(), It.IsAny<CancellationToken>()))
-                .Returns((Func<IEnumerable<LogEntity>, CancellationToken, Task>) ((e, t) =>
+            logWriterMock.Setup(w => w.WriteMessageAsync(It.IsAny<IEnumerable<LogMessageToWrite>>(), It.IsAny<CancellationToken>()))
+                .Returns((Func<IEnumerable<LogMessageToWrite>, CancellationToken, Task>) ((e, t) =>
                 {
                     return Task.Run(() =>
                     {
@@ -61,12 +62,12 @@ namespace MyLab.LogYml.Tests
         {
             //Arrange
 
-            LogEntity origin = new LogEntity();
-            LogEntity got = null;
+            LogMessageToWrite origin = new LogMessageToWrite(null, LogLevel.None);
+            LogMessageToWrite got = null;
 
             var logWriterMock = new Mock<ILogMessageWriter>();
-            logWriterMock.Setup(w => w.WriteMessageAsync(It.IsAny<IEnumerable<LogEntity>>(), It.IsAny<CancellationToken>()))
-                .Returns((Func<IEnumerable<LogEntity>, CancellationToken, Task>)((e, t) =>
+            logWriterMock.Setup(w => w.WriteMessageAsync(It.IsAny<IEnumerable<LogMessageToWrite>>(), It.IsAny<CancellationToken>()))
+                .Returns((Func<IEnumerable<LogMessageToWrite>, CancellationToken, Task>)((e, t) =>
                 {
                     return Task.Run(() =>
                     {

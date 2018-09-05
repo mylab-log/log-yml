@@ -14,6 +14,11 @@
             Adds YAML logger
             </summary>
         </member>
+        <member name="M:MyLab.LogYml.ConfigurationExtension.AddYamlSync(Microsoft.Extensions.Logging.ILoggingBuilder)">
+            <summary>
+            Adds YAML logger
+            </summary>
+        </member>
         <member name="M:MyLab.LogYml.ConfigurationExtension.AddYaml(Microsoft.Extensions.Logging.ILoggingBuilder,System.Action{MyLab.LogYml.YamlLoggerOptions})">
             <summary>
             Adds YAML logger with options
@@ -24,9 +29,29 @@
             Determines log entity writer
             </summary>
         </member>
-        <member name="M:MyLab.LogYml.ILogMessageWriter.WriteMessageAsync(System.Collections.Generic.IEnumerable{MyLab.Logging.LogEntity},System.Threading.CancellationToken)">
+        <member name="M:MyLab.LogYml.ILogMessageWriter.WriteMessageAsync(System.Collections.Generic.IEnumerable{MyLab.LogYml.LogMessageToWrite},System.Threading.CancellationToken)">
             <summary>
             Write log entity async
+            </summary>
+        </member>
+        <member name="T:MyLab.LogYml.LogMessageToWrite">
+            <summary>
+            Contains data to write into log
+            </summary>
+        </member>
+        <member name="P:MyLab.LogYml.LogMessageToWrite.Message">
+            <summary>
+            Log message object
+            </summary>
+        </member>
+        <member name="P:MyLab.LogYml.LogMessageToWrite.Level">
+            <summary>
+            Log level
+            </summary>
+        </member>
+        <member name="M:MyLab.LogYml.LogMessageToWrite.#ctor(System.Object,Microsoft.Extensions.Logging.LogLevel)">
+            <summary>
+            Initializes a new instance of <see cref="T:MyLab.LogYml.LogMessageToWrite"/>
             </summary>
         </member>
         <member name="T:MyLab.LogYml.YamlLoggerOptions">
