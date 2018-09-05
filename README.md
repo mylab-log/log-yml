@@ -4,6 +4,22 @@ For .NET Core 2.1+
 
 Writes logs in files with YAML format. Integrates in .NET Core build-in logging.
 
+Log messages writes into split files depends on log level. Filename contains following items:
+* date
+* type
+* index
+
+There are three log type files:
+* err - for Critical and Error
+* dbg - for Trace and Debug
+* [empty] - fro other levels
+
+Examples:
+* `2018.09.05.yml` - info log
+* `2018.09.05.err.yml` - error log
+* `2018.09.05.err.1.yml` - info log when previous file rich the limit
+* `2018.09.05.dbg.yml` - debug log
+
 ## Beginning
 
 To integrate `YAML logging` you mast call `AddYaml` method for logging builder when configure services:
@@ -166,6 +182,28 @@ Attributes:
 - Name: Conditions
   Value: vip
 ```
+
+
+
+## Config
+
+There is ability to configure logger. Do it when configure service at thу application start:
+
+```C#
+serviceCollection.Configure<YamlLoggerOptions>(o =>
+{
+    o.BasePath = "logs";
+    o.WriteInterval = TimeSpan.FromSeconds(5);
+    o.DisposeWaitingInterval = TimeSpan.FromSeconds(2);
+    o.FileSizeLimit = 5 * 1024 * 1024;
+});
+```
+In example above specified the default values.
+
+`BasePath` - related or absolute path for files
+`WriteInterval` - an interval between log writing iterations
+`DisposeWaitingInterval` - an interval to write left log messages when application closing
+`FileSizeLimit` - a max length of log file. A file with the next index will be writes when reach this limit.
 
 
 
