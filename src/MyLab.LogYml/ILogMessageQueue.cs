@@ -4,6 +4,6 @@ namespace MyLab.LogYml
 {
     interface ILogMessageQueue
     {
-        void Push(LogEntity entity);
+        void Push(LogMessageToWrite msgToWrite);
     }
 }

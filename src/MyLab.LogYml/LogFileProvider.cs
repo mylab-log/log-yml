@@ -16,7 +16,7 @@ namespace MyLab.LogYml
         public string ProvideFilename(string tag)
         {
             string dateName = $"{DateTime.Now.Year}.{DateTime.Now.Month:D2}.{DateTime.Now.Day:D2}";
-            string nameEnd = $"{tag}.yml";
+            string nameEnd = string.IsNullOrWhiteSpace(tag) ? "yml" : $"{tag}.yml";
             string resultFilename;
             int index = 0;
             

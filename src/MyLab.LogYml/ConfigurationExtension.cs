@@ -20,6 +20,16 @@ namespace MyLab.LogYml
         }
 
         /// <summary>
+        /// Adds YAML logger
+        /// </summary>
+        internal static ILoggingBuilder AddYamlSync(this ILoggingBuilder lBuilder)
+        {
+            lBuilder.Services.AddSingleton<ILoggerProvider, YamlLoggerProviderSync>();
+
+            return lBuilder;
+        }
+
+        /// <summary>
         /// Adds YAML logger with options
         /// </summary>
         public static ILoggingBuilder AddYaml(this ILoggingBuilder lBuilder, Action<YamlLoggerOptions> configure)
